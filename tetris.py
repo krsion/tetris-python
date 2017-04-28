@@ -86,15 +86,13 @@ def random_shape():
         shape = rotate_shape(shape)
     return shape
 
-def game(sizes=(15, 10), startcoords=(0, 0)):
+def game(sizes=(18, 10), startcoords=(0, 3)):
     ground = [[EMPTY for _ in range(sizes[1])] for _ in range(sizes[0])]
     score = 0
     next_tetromino = random_shape(), startcoords, choice(COLORS)
-    while True:
+    while can_place(ground, next_tetromino):
         tetromino = next_tetromino
         next_tetromino = random_shape(), startcoords, choice(COLORS)
-        if not can_place(ground, tetromino):
-            break
         ground = place(ground, tetromino)
 
         # downfall of one tetromino
@@ -144,3 +142,4 @@ def display(ground, score, next_tetromino):
 
 if __name__ == "__main__":
     game()
+        
